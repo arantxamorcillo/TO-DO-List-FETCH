@@ -1,0 +1,121 @@
+@import "~bootstrap/scss/bootstrap.scss";
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
+
+@keyframes background {
+    to {background-color:rgb(248, 88, 115)}
+}
+
+
+.alert{
+    animation: shake 0.6s, background 0.6s ;
+}
+
+
+body{
+  font-size: 24px;
+}
+
+.diary{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 32px auto;
+    max-width:400px;
+    width: 100%;
+    background-color: rgb(248, 248, 248);
+    box-shadow: 0px 2px 5px 0px #a1a1a1, 0px 10px 0 0px rgb(248, 248, 248), 0px 11px 1px 0px #a1a1a1, 
+    0px 12px 12px 0px #a1a1a1, 0px 23px 0 0px rgb(248, 248, 248),
+    0px 24px 1px 0px #a1a1a1;
+}
+
+.title-list{
+    font-weight: lighter;
+    text-align: center;
+    font-size: 4em;
+    color: pink;
+    border-bottom: 1px solid rgb(199, 199, 199);
+    margin: 0px;
+}
+
+// .task-container{
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     width: 100%;
+//     border-bottom: 1px solid rgb(199, 199, 199);
+//     border-right: none;
+//     border-left: none;
+//     min-height: 64px;
+//     height: fit-content ;
+//     color:rgb(148, 148, 148);
+    
+// }
+
+.New-Task{
+    background-color: rgb(248, 248, 248);
+    font-weight: lighter;
+    border: none;
+    min-height: 64px;
+    padding: 16px;
+} 
+
+.New-Task:focus-visible{
+    outline-color: rgb(231, 124, 160);
+    height: 48px;
+    background-color: rgb(255, 255, 255);
+    
+
+}
+
+.task{
+    display: flex;
+    min-height: 64px;
+    border-bottom: 1px solid rgb(199, 199, 199);
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Task-list{
+    margin: 0px;
+    font-weight: lighter;
+    list-style: none;
+    padding: 0px;
+    border: 1px solid rgb(199, 199, 199);
+}
+.Task-list li{
+   padding: 16px;
+   margin: 0px;
+
+}   
+.trash{
+    display: none;
+    
+}
+
+.task:hover:hover .trash {
+    display: flex;
+    padding: 16px;
+    color: pink;
+    font-weight: lighter;
+    float: right;
+}
+
+.footer-container{
+    color: rgb(170, 170, 170);
+    font-weight: lighter;
+    font-size: 16px;
+   
+}
