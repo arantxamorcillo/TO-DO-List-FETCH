@@ -3,14 +3,18 @@ import propTypes from "prop-types";
 
 const Tasks = ({ tasks, taskDuplicate, Duplicated, removeTask }) => {
 	return tasks.map(task => {
-		if (taskDuplicate && Duplicated.toLowerCase() === task.toLowerCase()) {
+		console.log(`esto es la lista ${tasks}`);
+		if (
+			taskDuplicate &&
+			Duplicated.toLowerCase() === task.label.toLowerCase()
+		) {
 			return (
 				<li key={Duplicated} className={"task alert"}>
-					{task}
+					{task.label}
 					<span
 						className="trash"
 						onClick={function Remove() {
-							removeTask(task);
+							removeTask(task.label);
 						}}>
 						<i className="far fa-trash-alt"></i>
 					</span>
@@ -18,12 +22,12 @@ const Tasks = ({ tasks, taskDuplicate, Duplicated, removeTask }) => {
 			);
 		} else {
 			return (
-				<li key={task} className={"task"}>
-					{task}
+				<li key={task.label} className={"task"}>
+					{task.label}
 					<span
 						className="trash"
 						onClick={function Remove() {
-							removeTask(task);
+							removeTask(task.label);
 						}}>
 						<i className="far fa-trash-alt"></i>
 					</span>

@@ -1,16 +1,66 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Tasks from "./Tasks.jsx";
 import Item from "./Item.jsx";
 import Footer from "./footer.jsx";
+import DeleteAllTasks from "./deleteAllTasks.jsx";
 
 const TodoList = () => {
-	const [tasks, setTaks] = useState([]);
+	const [tasks, setTasks] = useState([]);
 
 	const [Task, setNewTask] = useState("");
 
 	const [taskDuplicate, setTaskDuplicated] = useState(false);
 
 	const [Duplicated, setDuplicated] = useState("");
+
+	async function updateTasks(list) {
+		let response = await fetch(
+			`https://assets.breatheco.de/apis/fake/todos/user/arantxamorcillo`,
+			{
+				method: "PUT",
+				body: JSON.stringify(list),
+				headers: {
+					"Content-Type": "application/json"
+				}
+			}
+		);
+		let responseJason = await response.json();
+		console.log(responseJason);
+	}
+
+	async function getTasks() {
+		let response = await fetch(
+			`https://assets.breatheco.de/apis/fake/todos/user/arantxamorcillo`,
+			{
+				headers: {
+					"Content-Type": "application/json"
+				}
+			}
+		);
+		let responseJason = await response.json();
+		console.log(responseJason);
+		setTasks(responseJason);
+	}
+
+	async function DeleteTasksFetch() {
+		let response = await fetch(
+			`https://assets.breatheco.de/apis/fake/todos/user/arantxamorcillo`,
+			{
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json"
+				}
+			}
+		);
+
+		let responseJson = await response.json();
+		console.log(responseJson);
+	}
+
+	function DeleteTasks() {
+		DeleteTasksFetch();
+		setTasks([]);
+	}
 
 	function Change(event) {
 		setNewTask(event.target.value);
@@ -19,7 +69,7 @@ const TodoList = () => {
 	function Enter(event) {
 		if (event.key === "Enter") {
 			let value = event.target.value;
-			let tasksLowerCase = tasks.map(task => task.toLowerCase());
+			let tasksLowerCase = tasks.map(task => task.label.toLowerCase());
 
 			if (tasksLowerCase.includes(value.toLowerCase())) {
 				setTaskDuplicated(true);
@@ -28,8 +78,12 @@ const TodoList = () => {
 				if (value === "") {
 					alert("task cant be empty");
 				} else {
-					setTaks([...tasks, Task]);
+					let taskObject = { label: Task, done: false };
+					const newtasks = [...tasks, taskObject];
+					updateTasks(newtasks);
+					setTasks([...tasks, taskObject]);
 				}
+
 				setTaskDuplicated(false);
 			}
 
@@ -38,8 +92,12 @@ const TodoList = () => {
 	}
 
 	function removeTask(taskToRemove) {
-		setTaks(tasks.filter(task => task !== taskToRemove));
+		setTasks(tasks.filter(task => task.label !== taskToRemove));
 	}
+
+	useEffect(() => {
+		getTasks();
+	}, []);
 
 	return (
 		<div className="diary">
@@ -64,6 +122,7 @@ const TodoList = () => {
 				})} */}
 				<Footer tasks={tasks} />
 			</ul>
+			<DeleteAllTasks DeleteTasks={DeleteTasks} />
 		</div>
 	);
 };
