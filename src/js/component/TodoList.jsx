@@ -77,13 +77,13 @@ const TodoList = () => {
 			}
 		);
 		createNewUser("arantxamorcillo");
+
 		let responseJson = await response.json();
 		console.log(responseJson);
 	}
 
 	function DeleteTasks() {
 		DeleteTasksFetch();
-
 		setTasks([]);
 	}
 
