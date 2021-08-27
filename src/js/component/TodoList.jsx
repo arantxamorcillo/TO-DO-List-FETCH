@@ -28,6 +28,25 @@ const TodoList = () => {
 		console.log(responseJason);
 	}
 
+	// useEffect(() => {
+	// 	createNewUser("arantxamorcillo");
+	// }, []);
+
+	async function createNewUser(user) {
+		let response = await fetch(
+			`https://assets.breatheco.de/apis/fake/todos/user/${user}`,
+			{
+				method: "POST",
+				body: JSON.stringify([]),
+				headers: {
+					"Content-Type": "application/json"
+				}
+			}
+		);
+		let responseJason = await response.json();
+		console.log(responseJason);
+	}
+
 	async function getTasks() {
 		let response = await fetch(
 			`https://assets.breatheco.de/apis/fake/todos/user/arantxamorcillo`,
@@ -42,6 +61,11 @@ const TodoList = () => {
 		setTasks(responseJason);
 	}
 
+	useEffect(() => {
+		createNewUser("arantxamorcillo");
+		getTasks();
+	}, []);
+
 	async function DeleteTasksFetch() {
 		let response = await fetch(
 			`https://assets.breatheco.de/apis/fake/todos/user/arantxamorcillo`,
@@ -52,13 +76,14 @@ const TodoList = () => {
 				}
 			}
 		);
-
+		createNewUser("arantxamorcillo");
 		let responseJson = await response.json();
 		console.log(responseJson);
 	}
 
 	function DeleteTasks() {
 		DeleteTasksFetch();
+
 		setTasks([]);
 	}
 
@@ -94,10 +119,6 @@ const TodoList = () => {
 	function removeTask(taskToRemove) {
 		setTasks(tasks.filter(task => task.label !== taskToRemove));
 	}
-
-	useEffect(() => {
-		getTasks();
-	}, []);
 
 	return (
 		<div className="diary">
